@@ -1,13 +1,13 @@
 export type MediaType = {
   id?: number
-  show_id: string
+  showId: string
   type: string
   title: string
   director: string
   country: string
-  date_added: string
-  release_year: number
+  dateAdded: string
+  releaseYear: number
   rating: string
   duration: string
-  listed_in: string[]
+  listedIn: string
 }

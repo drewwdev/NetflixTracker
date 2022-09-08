@@ -5,16 +5,16 @@ import { MediaType } from '../types'
 
 export default function CreateNewMedia() {
   const [newMedia, setNewMedia] = useState<MediaType>({
-    show_id: '',
+    showId: '',
     type: '',
     title: '',
     director: '',
     country: '',
-    date_added: '',
-    release_year: 0,
+    dateAdded: '',
+    releaseYear: 0,
     rating: '',
     duration: '',
-    listed_in: [],
+    listedIn: '',
   })
 
   function handleOnTextChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -52,11 +52,11 @@ export default function CreateNewMedia() {
   return (
     <div className="flex flex-col w-1/3">
       <div className="flex">
-        <label htmlFor="show_id">Show ID</label>
+        <label htmlFor="showId">Show ID</label>
         <input
           type="text"
-          name="show_id"
-          value={newMedia.show_id}
+          name="showId"
+          value={newMedia.showId}
           onChange={handleOnTextChange}
         />
       </div>
@@ -97,22 +97,22 @@ export default function CreateNewMedia() {
         />
       </div>
       <div className="flex">
-        <label htmlFor="date_added">Date Added</label>
+        <label htmlFor="dateAdded">Date Added</label>
         <input
           type="text"
-          name="date_added"
-          value={newMedia.date_added}
+          name="dateAdded"
+          value={newMedia.dateAdded}
           onChange={handleOnTextChange}
         />
       </div>
       <div className="flex">
-        <label htmlFor="release_year">Release Year</label>
+        <label htmlFor="releaseYear">Release Year</label>
         <input
           type="number"
-          name="release_year"
-          value={newMedia.release_year}
+          name="releaseYear"
+          value={newMedia.releaseYear}
           onChange={(e) => {
-            setNewMedia({ ...newMedia, release_year: parseInt(e.target.value) })
+            setNewMedia({ ...newMedia, releaseYear: parseInt(e.target.value) })
           }}
         />
       </div>
@@ -135,11 +135,11 @@ export default function CreateNewMedia() {
         />
       </div>
       <div className="flex">
-        <label htmlFor="listed_in">Listed In</label>
+        <label htmlFor="listedIn">Listed In</label>
         <input
           type="text"
-          name="listed_in"
-          value={newMedia.listed_in}
+          name="listedIn"
+          value={newMedia.listedIn}
           onChange={handleOnTextChange}
         />
       </div>

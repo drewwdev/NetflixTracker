@@ -14,16 +14,16 @@ namespace NetflixTracker.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Show_Id = table.Column<string>(type: "text", nullable: true),
+                    ShowId = table.Column<string>(type: "text", nullable: true),
                     Type = table.Column<string>(type: "text", nullable: true),
                     Title = table.Column<string>(type: "text", nullable: true),
                     Director = table.Column<string>(type: "text", nullable: true),
                     Country = table.Column<string>(type: "text", nullable: true),
-                    Date_Added = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Release_Year = table.Column<int>(type: "integer", nullable: false),
+                    DateAdded = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ReleaseYear = table.Column<int>(type: "integer", nullable: false),
                     Rating = table.Column<string>(type: "text", nullable: true),
                     Duration = table.Column<string>(type: "text", nullable: true),
-                    Listed_In = table.Column<string>(type: "text", nullable: true)
+                    ListedIn = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

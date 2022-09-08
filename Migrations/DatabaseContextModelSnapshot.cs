@@ -29,7 +29,7 @@ namespace NetflixTracker.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Date_Added")
+                    b.Property<DateTime>("DateAdded")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Director")
@@ -38,16 +38,16 @@ namespace NetflixTracker.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("text");
 
-                    b.Property<string>("Listed_In")
+                    b.Property<string>("ListedIn")
                         .HasColumnType("text");
 
                     b.Property<string>("Rating")
                         .HasColumnType("text");
 
-                    b.Property<int>("Release_Year")
+                    b.Property<int>("ReleaseYear")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Show_Id")
+                    b.Property<string>("ShowId")
                         .HasColumnType("text");
 
                     b.Property<string>("Title")

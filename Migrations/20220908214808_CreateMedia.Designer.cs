@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetflixTracker.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220908015025_CreateMedia")]
+    [Migration("20220908214808_CreateMedia")]
     partial class CreateMedia
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,8 +40,8 @@ namespace NetflixTracker.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Listed_In")
-                        .HasColumnType("text[]");
+                    b.Property<string>("Listed_In")
+                        .HasColumnType("text");
 
                     b.Property<string>("Rating")
                         .HasColumnType("text");

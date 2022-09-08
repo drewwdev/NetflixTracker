@@ -23,7 +23,7 @@ namespace NetflixTracker.Migrations
                     Release_Year = table.Column<int>(type: "integer", nullable: false),
                     Rating = table.Column<string>(type: "text", nullable: true),
                     Duration = table.Column<string>(type: "text", nullable: true),
-                    Listed_In = table.Column<string[]>(type: "text[]", nullable: true)
+                    Listed_In = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {

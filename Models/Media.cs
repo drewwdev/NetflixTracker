@@ -14,6 +14,6 @@ namespace NetflixTracker.Models
         public int Release_Year { get; set; }
         public string Rating { get; set; }
         public string Duration { get; set; }
-        public string[] Listed_In { get; set; }
+        public string Listed_In { get; set; }
     }
 }

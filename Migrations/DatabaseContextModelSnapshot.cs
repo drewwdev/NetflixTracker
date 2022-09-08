@@ -38,8 +38,8 @@ namespace NetflixTracker.Migrations
                     b.Property<string>("Duration")
                         .HasColumnType("text");
 
-                    b.Property<string[]>("Listed_In")
-                        .HasColumnType("text[]");
+                    b.Property<string>("Listed_In")
+                        .HasColumnType("text");
 
                     b.Property<string>("Rating")
                         .HasColumnType("text");

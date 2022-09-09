@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
 import { MediaType } from '../types'
 
-function MediaList() {
+function GetMediaList() {
   const { data: Media = [] } = useQuery<MediaType[]>(
     'media',
     async function () {
@@ -33,22 +33,21 @@ function MediaList() {
           {Media.map(function (Media: MediaType) {
             return (
               <tr key={Media.id}>
-                <td>{Media.showId}</td>
-                <td>{Media.type}</td>
-                <td>{Media.title}</td>
-                <td>{Media.director}</td>
-                <td>{Media.country}</td>
-                <td>{new Date(Media.dateAdded).toLocaleString()}</td>
-                <td>{Media.releaseYear}</td>
-                <td>{Media.rating}</td>
-                <td>{Media.duration}</td>
-                <td>{Media.listedIn}</td>
-                <td>
-                  <button className="px-12">Update</button>
-                </td>
-                <td>
-                  <button>Delete</button>
-                </td>
+                <Link
+                  to={`/Media/${Media.id}`}
+                  className="flex-col justify-center"
+                >
+                  <td>{Media.showId}</td>
+                  <td>{Media.type}</td>
+                  <td>{Media.title}</td>
+                  <td>{Media.director}</td>
+                  <td>{Media.country}</td>
+                  <td>{new Date(Media.dateAdded).toLocaleString()}</td>
+                  <td>{Media.releaseYear}</td>
+                  <td>{Media.rating}</td>
+                  <td>{Media.duration}</td>
+                  <td>{Media.listedIn}</td>
+                </Link>
               </tr>
             )
           })}
@@ -58,4 +57,4 @@ function MediaList() {
   )
 }
 
-export default MediaList
+export default GetMediaList

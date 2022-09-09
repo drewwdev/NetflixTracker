@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { Link, useNavigate } from 'react-router-dom'
 import { MediaType } from '../../types'
 
 function GetMediaList() {
+  const [filterText, setFilterText] = useState('')
+
   const { data: Media = [] } = useQuery<MediaType[]>(
     'media',
     async function () {
-      const response = await fetch('/api/Media')
+      const response = await fetch(
+        filterText.length === 0
+          ? '/api/Media'
+          : `/api/Media?filter=${filterText}`
+      )
       return response.json()
     }
   )
@@ -25,6 +31,14 @@ function GetMediaList() {
       >
         Create New Media
       </Link>
+
+      <input
+        type="search"
+        value={filterText}
+        onChange={function (event) {
+          setFilterText(event.target.value)
+        }}
+      ></input>
 
       <table className="flex-col p-12 border-separate table-auto">
         <thead className="flex-col text-left">

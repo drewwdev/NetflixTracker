@@ -31,11 +31,18 @@ namespace NetflixTracker.Controllers
         // Returns a list of all your Media
         //
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Media>>> GetMedia()
+        public async Task<ActionResult<IEnumerable<Media>>> GetMedia(string filter)
         {
             // Uses the database context in `_context` to request all of the Media, sort
             // them by row id and return them as a JSON array.
-            return await _context.Media.OrderBy(row => row.Id).ToListAsync();
+            if (filter == null) {
+
+                return await _context.Media.OrderBy(row => row.Id).ToListAsync();
+            }
+               else
+            {
+                return await _context.Media.Where(Media => Media.Title.ToLower().Contains(filter.ToLower()) | Media.Type.ToLower().Contains(filter.ToLower())).ToListAsync();
+            }
         }
 
         // GET: api/Media/5

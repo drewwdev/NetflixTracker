@@ -19,7 +19,12 @@ function GetMediaList() {
 
   return (
     <div>
-      <Link to="/Media/create">Create New Media</Link>
+      <Link
+        className="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
+        to="/Media/create"
+      >
+        Create New Media
+      </Link>
 
       <table className="flex-col p-12 border-separate table-auto">
         <thead className="flex-col text-left">

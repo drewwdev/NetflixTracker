@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NetflixTracker.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20220908215844_CreateMedia")]
+    [Migration("20220909013711_CreateMedia")]
     partial class CreateMedia
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

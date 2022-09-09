@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
+import { submitNewMedia } from '../../api/submitNewMedia'
 import { MediaType } from '../../types'
 
 export default function CreateNewMedia() {
@@ -24,16 +25,6 @@ export default function CreateNewMedia() {
     const updatedMedia = { ...newMedia, [fieldName]: value }
 
     setNewMedia(updatedMedia)
-  }
-
-  async function submitNewMedia(mediaToCreate: MediaType) {
-    const response = await fetch('/api/Media', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(mediaToCreate),
-    })
-
-    return response.json()
   }
 
   const navigate = useNavigate()

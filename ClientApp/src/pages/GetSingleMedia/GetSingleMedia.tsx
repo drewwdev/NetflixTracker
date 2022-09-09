@@ -3,15 +3,7 @@ import { useQuery } from 'react-query'
 import { useParams } from 'react-router'
 import { Link, useNavigate } from 'react-router-dom'
 import { MediaType } from '../../types'
-
-async function loadOneEntry(id: string | undefined) {
-  const response = await fetch(`/api/Media/${id}`)
-  if (response.ok) {
-    return response.json()
-  } else {
-    throw await response.json()
-  }
-}
+import { loadOneEntry } from '../../api/loadOneEntry'
 
 function GetSingleMedia() {
   const navigate = useNavigate()

@@ -1,9 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
-import CreateNewMedia from './pages/CreateNewMedia'
-import GetMediaList from './pages/GetMediaList'
-import GetSingleMedia from './pages/GetSingleMedia'
-import UpdateSingleMedia from './pages/UpdateSingleMedia'
+import CreateNewMedia from './pages/CreateNewMedia/CreateNewMedia'
+import GetMediaList from './pages/GetMediaList/GetMediaList'
+import GetSingleMedia from './pages/GetSingleMedia/GetSingleMedia'
+import UpdateSingleMedia from './pages/UpdateSingleMedia/UpdateSingleMedia'
 
 export function App() {
   return (

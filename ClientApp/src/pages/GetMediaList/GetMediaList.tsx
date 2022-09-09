@@ -1,7 +1,7 @@
 import React from 'react'
 import { useQuery } from 'react-query'
 import { Link, useNavigate } from 'react-router-dom'
-import { MediaType } from '../types'
+import { MediaType } from '../../types'
 
 function GetMediaList() {
   const { data: Media = [] } = useQuery<MediaType[]>(

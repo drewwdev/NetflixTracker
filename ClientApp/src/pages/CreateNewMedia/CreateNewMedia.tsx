@@ -1,38 +1,10 @@
 import React, { useState } from 'react'
-import { useMutation, useQuery } from 'react-query'
-import { useNavigate, useParams } from 'react-router-dom'
-import { MediaType } from '../types'
+import { useMutation } from 'react-query'
+import { useNavigate } from 'react-router-dom'
+import { MediaType } from '../../types'
 
-async function loadOneEntry(id: string | undefined) {
-  const response = await fetch(`/api/Media/${id}`)
-  if (response.ok) {
-    return response.json()
-  } else {
-    throw await response.json()
-  }
-}
-
-async function submitUpdatedMedia(meditToUpdate: MediaType) {
-  const response = await fetch(`/api/Media/${meditToUpdate.id}`, {
-    method: 'PUT',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(meditToUpdate),
-  })
-
-  return response.json()
-}
-
-export function UpdateSingleMedia() {
-  const navigate = useNavigate()
-  const { id } = useParams<{ id: string }>()
-
-  useQuery<MediaType>(['one-media-entry', id], () => loadOneEntry(id), {
-    onSuccess: function (data) {
-      setMedia(data)
-    },
-  })
-
-  const [media, setMedia] = useState<MediaType>({
+export default function CreateNewMedia() {
+  const [newMedia, setNewMedia] = useState<MediaType>({
     showId: '',
     type: '',
     title: '',
@@ -45,25 +17,36 @@ export function UpdateSingleMedia() {
     listedIn: '',
   })
 
-  const updateMedia = useMutation(submitUpdatedMedia, {
+  function handleOnTextChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value
+    const fieldName = event.target.name
+
+    const updatedMedia = { ...newMedia, [fieldName]: value }
+
+    setNewMedia(updatedMedia)
+  }
+
+  async function submitNewMedia(mediaToCreate: MediaType) {
+    const response = await fetch('/api/Media', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(mediaToCreate),
+    })
+
+    return response.json()
+  }
+
+  const navigate = useNavigate()
+  const submitCreatedNewMedia = useMutation(submitNewMedia, {
     onSuccess: function () {
       navigate('/')
     },
   })
 
-  function handleOnTextChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value
-    const fieldName = event.target.name
-
-    const updatedMedia = { ...media, [fieldName]: value }
-
-    setMedia(updatedMedia)
-  }
-
   function handleFormSubmit(event: React.FormEvent<HTMLButtonElement>) {
     event.preventDefault()
 
-    updateMedia.mutate(media)
+    submitCreatedNewMedia.mutate(newMedia)
   }
 
   return (
@@ -73,7 +56,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="showId"
-          value={media.showId}
+          value={newMedia.showId}
           onChange={handleOnTextChange}
         />
       </div>
@@ -82,7 +65,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="type"
-          value={media.type}
+          value={newMedia.type}
           onChange={handleOnTextChange}
         />
       </div>
@@ -91,7 +74,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="title"
-          value={media.title}
+          value={newMedia.title}
           onChange={handleOnTextChange}
         />
       </div>
@@ -100,7 +83,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="director"
-          value={media.director}
+          value={newMedia.director}
           onChange={handleOnTextChange}
         />
       </div>
@@ -109,7 +92,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="country"
-          value={media.country}
+          value={newMedia.country}
           onChange={handleOnTextChange}
         />
       </div>
@@ -118,7 +101,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="dateAdded"
-          value={new Date(media.dateAdded).toLocaleString()}
+          value={newMedia.dateAdded}
           onChange={handleOnTextChange}
         />
       </div>
@@ -127,9 +110,9 @@ export function UpdateSingleMedia() {
         <input
           type="number"
           name="releaseYear"
-          value={media.releaseYear}
+          value={newMedia.releaseYear}
           onChange={(e) => {
-            setMedia({ ...media, releaseYear: parseInt(e.target.value) })
+            setNewMedia({ ...newMedia, releaseYear: parseInt(e.target.value) })
           }}
         />
       </div>
@@ -138,7 +121,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="rating"
-          value={media.rating}
+          value={newMedia.rating}
           onChange={handleOnTextChange}
         />
       </div>
@@ -147,7 +130,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="duration"
-          value={media.duration}
+          value={newMedia.duration}
           onChange={handleOnTextChange}
         />
       </div>
@@ -156,7 +139,7 @@ export function UpdateSingleMedia() {
         <input
           type="text"
           name="listedIn"
-          value={media.listedIn}
+          value={newMedia.listedIn}
           onChange={handleOnTextChange}
         />
       </div>
@@ -169,5 +152,3 @@ export function UpdateSingleMedia() {
     </div>
   )
 }
-
-export default UpdateSingleMedia

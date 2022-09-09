@@ -1,10 +1,29 @@
 import React, { useState } from 'react'
-import { useMutation } from 'react-query'
-import { useNavigate } from 'react-router-dom'
-import { MediaType } from '../types'
+import { useMutation, useQuery } from 'react-query'
+import { useNavigate, useParams } from 'react-router-dom'
+import { MediaType } from '../../types'
+import { submitUpdatedMedia } from '../../api/submitUpdatedMedia'
 
-export default function CreateNewMedia() {
-  const [newMedia, setNewMedia] = useState<MediaType>({
+async function loadOneEntry(id: string | undefined) {
+  const response = await fetch(`/api/Media/${id}`)
+  if (response.ok) {
+    return response.json()
+  } else {
+    throw await response.json()
+  }
+}
+
+export function UpdateSingleMedia() {
+  const navigate = useNavigate()
+  const { id } = useParams<{ id: string }>()
+
+  useQuery<MediaType>(['one-media-entry', id], () => loadOneEntry(id), {
+    onSuccess: function (data) {
+      setMedia(data)
+    },
+  })
+
+  const [media, setMedia] = useState<MediaType>({
     showId: '',
     type: '',
     title: '',
@@ -17,36 +36,25 @@ export default function CreateNewMedia() {
     listedIn: '',
   })
 
-  function handleOnTextChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value
-    const fieldName = event.target.name
-
-    const updatedMedia = { ...newMedia, [fieldName]: value }
-
-    setNewMedia(updatedMedia)
-  }
-
-  async function submitNewMedia(mediaToCreate: MediaType) {
-    const response = await fetch('/api/Media', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(mediaToCreate),
-    })
-
-    return response.json()
-  }
-
-  const navigate = useNavigate()
-  const submitCreatedNewMedia = useMutation(submitNewMedia, {
+  const updateMedia = useMutation(submitUpdatedMedia, {
     onSuccess: function () {
       navigate('/')
     },
   })
 
+  function handleOnTextChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value
+    const fieldName = event.target.name
+
+    const updatedMedia = { ...media, [fieldName]: value }
+
+    setMedia(updatedMedia)
+  }
+
   function handleFormSubmit(event: React.FormEvent<HTMLButtonElement>) {
     event.preventDefault()
 
-    submitCreatedNewMedia.mutate(newMedia)
+    updateMedia.mutate(media)
   }
 
   return (
@@ -56,7 +64,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="showId"
-          value={newMedia.showId}
+          value={media.showId}
           onChange={handleOnTextChange}
         />
       </div>
@@ -65,7 +73,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="type"
-          value={newMedia.type}
+          value={media.type}
           onChange={handleOnTextChange}
         />
       </div>
@@ -74,7 +82,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="title"
-          value={newMedia.title}
+          value={media.title}
           onChange={handleOnTextChange}
         />
       </div>
@@ -83,7 +91,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="director"
-          value={newMedia.director}
+          value={media.director}
           onChange={handleOnTextChange}
         />
       </div>
@@ -92,7 +100,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="country"
-          value={newMedia.country}
+          value={media.country}
           onChange={handleOnTextChange}
         />
       </div>
@@ -101,7 +109,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="dateAdded"
-          value={newMedia.dateAdded}
+          value={new Date(media.dateAdded).toLocaleString()}
           onChange={handleOnTextChange}
         />
       </div>
@@ -110,9 +118,9 @@ export default function CreateNewMedia() {
         <input
           type="number"
           name="releaseYear"
-          value={newMedia.releaseYear}
+          value={media.releaseYear}
           onChange={(e) => {
-            setNewMedia({ ...newMedia, releaseYear: parseInt(e.target.value) })
+            setMedia({ ...media, releaseYear: parseInt(e.target.value) })
           }}
         />
       </div>
@@ -121,7 +129,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="rating"
-          value={newMedia.rating}
+          value={media.rating}
           onChange={handleOnTextChange}
         />
       </div>
@@ -130,7 +138,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="duration"
-          value={newMedia.duration}
+          value={media.duration}
           onChange={handleOnTextChange}
         />
       </div>
@@ -139,7 +147,7 @@ export default function CreateNewMedia() {
         <input
           type="text"
           name="listedIn"
-          value={newMedia.listedIn}
+          value={media.listedIn}
           onChange={handleOnTextChange}
         />
       </div>
@@ -152,3 +160,5 @@ export default function CreateNewMedia() {
     </div>
   )
 }
+
+export default UpdateSingleMedia

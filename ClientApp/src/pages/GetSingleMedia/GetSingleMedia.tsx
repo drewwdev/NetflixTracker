@@ -2,7 +2,7 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import { useParams } from 'react-router'
 import { Link, useNavigate } from 'react-router-dom'
-import { MediaType } from '../types'
+import { MediaType } from '../../types'
 
 async function loadOneEntry(id: string | undefined) {
   const response = await fetch(`/api/Media/${id}`)
@@ -50,8 +50,8 @@ function GetSingleMedia() {
   )
 
   return (
-    <table className="flex-col justify-center">
-      <tbody>
+    <table className="flex-col p-12 border-separate table-auto">
+      <thead className="flex-col text-left">
         <tr>
           <th>Show Id</th>
           <th>Type</th>
@@ -64,6 +64,8 @@ function GetSingleMedia() {
           <th>Duration</th>
           <th>Listed In</th>
         </tr>
+      </thead>
+      <tbody>
         <tr key={Media.id}>
           <td>{Media.showId}</td>
           <td>{Media.type}</td>

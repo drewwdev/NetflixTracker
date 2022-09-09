@@ -1,6 +1,0 @@
-TRUNCATE TABLE "Media" RESTART IDENTITY;
-
-INSERT INTO "Media" ("Show_Id", "Type", "Title", "Director", "Country", "Date_Added", "Release_Year", "Rating", "Duration", "Listed_In") VALUES ('s1', 'Movie', 'Dick Johnson Is Dead', 'Kirsten Johnson', 'United States', '9/25/2021', 2020, 'PG-13', '90 min', 'Documentaries');
-INSERT INTO "Media" ("Show_Id", "Type", "Title", "Director", "Country", "Date_Added", "Release_Year", "Rating", "Duration", "Listed_In") VALUES ('s3', 'TV Show', 'Ganglands', 'Julien Leclercq', 'France', '9/24/2021', 2021, 'TV-MA', '1 Season', 'Crime TV Shows, Docuseries, International TV Shows');
-INSERT INTO "Media" ("Show_Id", "Type", "Title", "Director", "Country", "Date_Added", "Release_Year", "Rating", "Duration", "Listed_In") VALUES ('s6', 'TV Show', 'Midnight Mass', 'Mike Flanagan', 'United States', '9/24/2021', 2021, 'TV-MA', '1 Season', 'Dramas, Horror TV Shows, TV Mysteries');
-INSERT INTO "Media" ("Show_Id", "Type", "Title", "Director", "Country", "Date_Added", "Release_Year", "Rating", "Duration", "Listed_In") VALUES ('s14', 'Movie', 'Confessions of an Inv..', 'Bruno Garotti', 'Brazil', '9/22/2021', 2021, 'TV-PG', '91 min', 'Children & Family Movies, Comedies');

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MediaType } from '../types'
 
 function GetMediaList() {
@@ -12,12 +12,17 @@ function GetMediaList() {
     }
   )
 
+  const navigate = useNavigate()
+  const handleRowClick = (Media: MediaType) => {
+    navigate(`/Media/${Media.id}`)
+  }
+
   return (
     <div>
-      <Link to="/CreateNewMedia">Create New Media</Link>
+      <Link to="/Media/create">Create New Media</Link>
 
-      <table className="flex-col justify-center">
-        <tbody>
+      <table className="flex-col p-12 border-separate table-auto">
+        <thead className="flex-col text-left">
           <tr>
             <th>Show Id</th>
             <th>Type</th>
@@ -30,24 +35,25 @@ function GetMediaList() {
             <th>Duration</th>
             <th>Listed In</th>
           </tr>
+        </thead>
+        <tbody>
           {Media.map(function (Media: MediaType) {
             return (
-              <tr key={Media.id}>
-                <Link
-                  to={`/Media/${Media.id}`}
-                  className="flex-col justify-center"
-                >
-                  <td>{Media.showId}</td>
-                  <td>{Media.type}</td>
-                  <td>{Media.title}</td>
-                  <td>{Media.director}</td>
-                  <td>{Media.country}</td>
-                  <td>{new Date(Media.dateAdded).toLocaleString()}</td>
-                  <td>{Media.releaseYear}</td>
-                  <td>{Media.rating}</td>
-                  <td>{Media.duration}</td>
-                  <td>{Media.listedIn}</td>
-                </Link>
+              <tr
+                key={Media.id}
+                className="flex-col cursor-pointer even:bg-gray-200"
+                onClick={() => handleRowClick(Media)}
+              >
+                <td>{Media.showId}</td>
+                <td>{Media.type}</td>
+                <td>{Media.title}</td>
+                <td>{Media.director}</td>
+                <td>{Media.country}</td>
+                <td>{new Date(Media.dateAdded).toLocaleString()}</td>
+                <td>{Media.releaseYear}</td>
+                <td>{Media.rating}</td>
+                <td>{Media.duration}</td>
+                <td>{Media.listedIn}</td>
               </tr>
             )
           })}
